@@ -1,30 +1,35 @@
+import React from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Todo from "./components/Todo";
+import Form from "./components/Form";
+import Filter from "./components/Filter";
 
-import React from 'react';
-import './App.css';
-import Navbar from './components/Navbar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Service from './pages/Service'
-import Contact from './pages/Contact'
-import About from './pages/About'
-import Design from './pages/Design'
 
-function App() {
+function App(props) {
+  const [tasks, setTasks] = useState(props.tasks);
+  
+  const tasklist = props.tasks?.map((task) => (
+    <Todo key={task.id} id={task.id} name={task.name} completed={task.completed} />
+  ));
+
+    function addTask(name) {
+      alert(name);
+    }
+
   return (
-   <div className='App'>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/service' element={<Service />} />
-        <Route path='/design' element={<Design />} />
-        <Route path='/contact' element={<Contact />} />
-      </Routes>
-
+    <div className="App">
       <Navbar />
-      
-    </BrowserRouter>
-   </div>
+
+      <Form addTask={addTask} />
+      <div>
+        <Filter />
+        {/* <Filter />
+        <Filter /> */}
+      </div>
+
+      <ul>{tasklist}</ul>
+    </div>
   );
 }
 
